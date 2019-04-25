@@ -1,0 +1,16 @@
+.react-calendar {
+ background-color: #444444;
+ color: #fff;
+}
+
+.react-calendar__navigation > button {
+  color: #fff;
+}
+
+.react-calendar__month-view__days__day {
+  color: #fff
+}
+
+.react-calendar__month-view__days__day--weekend {
+  color: red;
+}
