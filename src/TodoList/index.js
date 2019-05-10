@@ -7,21 +7,54 @@ class TodoList extends React.Component {
     super(props);
     this.state = {
       items: props.items,
+      newItem: '',
     };
+    this.itemId = 0;
   }
 
-  render() {
+  handleClickAddItem = () => {
+    const { items, newItem } = this.state;
+    items.push(newItem);
+    this.setState({
+      items,
+    });
+  };
+
+  handleInputChange = ({ target: { value } }) => {
+    this.setState({
+      newItem: value,
+    });
+  };
+
+  handleClickRemoveItem = (index) => {
     const { items } = this.state;
-    const itemList = items.map(item => (
-      <ListItem key={`item-${item}`}>
-        {item}
-      </ListItem>
-    ));
+    items.splice(index, 1);
+    this.setState({ items });
+  };
+
+  render() {
+    const { items, newItem } = this.state;
+    const itemList = items.map((item, index) => {
+      this.itemId += 1;
+      return (
+        <ListItem
+          key={`item-${this.itemId}`}
+          onClick={this.handleClickRemoveItem}
+          index={index}
+        >
+          {item}
+        </ListItem>
+      );
+    });
 
     return (
-      <ul>
-        {itemList}
-      </ul>
+      <>
+        <ul>
+          {itemList}
+        </ul>
+        <button type="button" onClick={this.handleClickAddItem}>[+]</button>
+        <input type="text" value={newItem} onChange={this.handleInputChange} />
+      </>
     );
   }
 }
