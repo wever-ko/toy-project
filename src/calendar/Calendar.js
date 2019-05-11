@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import ReactCalendar from 'react-calendar';
+import Schedule from './js/Schedule';
 import './css/Calendar.css';
 
 class Calendar extends Component {
@@ -12,13 +13,16 @@ class Calendar extends Component {
   render() {
     const { date } = this.state;
     return (
-      <div>
+      <>
         <ReactCalendar
           calendarType="US"
           onChange={this.onChange}
           value={date}
         />
-      </div>
+        <Schedule
+          date={date}
+        />
+      </>
     );
   }
 }
