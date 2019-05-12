@@ -10,6 +10,8 @@ class Calendar extends Component {
 
   onChange = date => this.setState({ date })
 
+  dateFormating = date => `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`
+
   render() {
     const { date } = this.state;
     return (
@@ -20,7 +22,7 @@ class Calendar extends Component {
           value={date}
         />
         <Schedule
-          date={date}
+          date={this.dateFormating(date)}
         />
       </>
     );

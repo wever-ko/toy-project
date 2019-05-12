@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class Schedule extends React.Component {
   index = 0;
@@ -31,15 +32,12 @@ class Schedule extends React.Component {
     });
   }
 
-  dateFormating = date => `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
-
   render() {
     const { item, schedule } = this.state;
-    const { date } = this.props;
-    const stateDate = this.dateFormating(date);
-    const schdulelist = schedule.map((v) => {
-      if (this.dateFormating(v.date) === stateDate) {
-        return <li key={v.index}>{v.item}</li>;
+    const { date: propsDate } = this.props;
+    const schdulelist = schedule.map(({ date: listDate, index: listIndex, item: listItem }) => {
+      if (listDate === propsDate) {
+        return <li key={listIndex}>{listItem}</li>;
       }
     });
 
@@ -63,5 +61,7 @@ class Schedule extends React.Component {
     );
   }
 }
+
+Schedule.propTypes = { date: PropTypes.string.isRequired };
 
 export default Schedule;
