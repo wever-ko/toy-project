@@ -17,6 +17,7 @@ class TodoList extends React.Component {
     items.push(newItem);
     this.setState({
       items,
+      newItem: '',
     });
   };
 
