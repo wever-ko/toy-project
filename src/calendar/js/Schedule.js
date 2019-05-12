@@ -9,20 +9,17 @@ class Schedule extends React.Component {
   }
 
   handleAddSchedule = () => {
-    const { date } = this.props;
     const { item, schedule } = this.state;
+    const { date } = this.props;
     const list = {
       index: this.index,
-      date: { date },
+      date,
       ...{ item },
     };
 
     this.setState({
-      schedule: schedule.concat(list),
-    });
-
-    this.setState({
       item: '',
+      schedule: schedule.concat(list),
     });
 
     this.index += 1;
@@ -34,11 +31,14 @@ class Schedule extends React.Component {
     });
   }
 
+  dateFormating = date => `${date.getFullYear()}${date.getMonth() + 1}${date.getDate()}`;
+
   render() {
-    const { date } = this.props;
     const { item, schedule } = this.state;
-    const list = schedule.map((v) => {
-      if (v.date.date === { date }.date) {
+    const { date } = this.props;
+    const stateDate = this.dateFormating(date);
+    const schdulelist = schedule.map((v) => {
+      if (this.dateFormating(v.date) === stateDate) {
         return <li key={v.index}>{v.item}</li>;
       }
     });
@@ -56,7 +56,9 @@ class Schedule extends React.Component {
         >
           입력
         </button>
-        {list}
+        <ul>
+          {schdulelist}
+        </ul>
       </>
     );
   }
