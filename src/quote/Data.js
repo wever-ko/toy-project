@@ -12,7 +12,7 @@ class Data extends Component {
 
     render() {
         return (
-            <div className="data">
+            <div className="quote-data">
                 {this.props.quote}
             </div>
         );
@@ -20,7 +20,7 @@ class Data extends Component {
 }
 
 Data.propTypes = {
-    quote: PropTypes.string
+    quote: PropTypes.string.isRequired
 };
 
 Data.defaultProps = {

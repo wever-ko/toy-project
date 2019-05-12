@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import QuoteSearch from 'search';
-import QuoteData from 'data';
+import QuoteSearch from './Search';
+import QuoteData from './Data';
+import QuoteList from './QuoteList';
 
 class Quote extends Component {
     state = {
@@ -15,7 +16,8 @@ class Quote extends Component {
         return (
             <div className="quote">
                 <QuoteSearch/>
-                <QuoteData/>
+                <QuoteData quote={}/>
+                <QuoteList/>
             </div>
         );
     }
