@@ -6,3 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 ```bash
   npm install
 ```
+### start
+```bash
+  npm start
+```
