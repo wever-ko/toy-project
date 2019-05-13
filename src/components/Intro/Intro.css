@@ -1,0 +1,17 @@
+.container {
+
+}
+
+.block {
+  display: flex;
+  flex-direction: column;
+}
+
+.input {
+  border-color: gray;
+  border-style: none none solid none;
+}
+
+.button {
+  border: 1px solid black;
+}
