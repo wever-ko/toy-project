@@ -7,15 +7,15 @@ class Intro extends React.Component {
     email: '',
   };
 
-  onChangeName = (event) => {
+  onChangeName = ({ target: { value } }) => {
     this.setState({
-      name: event.target.value,
+      name: value,
     });
   }
 
-  onChangeEmail = (event) => {
+  onChangeEmail = ({ target: { value } }) => {
     this.setState({
-      email: event.target.value,
+      email: value,
     });
   }
 
@@ -24,7 +24,7 @@ class Intro extends React.Component {
   };
 
   render() {
-    const ref = this.state;
+    const { name, email } = this.state;
     return (
       <div className="container">
         <div className="block">
@@ -32,7 +32,7 @@ class Intro extends React.Component {
           <input
             className="input"
             type="text"
-            value={ref.name}
+            value={name}
             onChange={this.onChangeName}
           />
         </div>
@@ -41,7 +41,7 @@ class Intro extends React.Component {
           <input
             className="input"
             type="email"
-            value={ref.email}
+            value={email}
             onChange={this.onChangeEmail}
           />
         </div>
