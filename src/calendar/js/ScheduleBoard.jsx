@@ -1,11 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-class Schedule extends React.Component {
+class ScheduleBoard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: '',
+      newItem: '',
       schedule: (() => {
         const schedule = localStorage.getItem('scheduleList');
         return (schedule === null) ? [] : JSON.parse(schedule);
@@ -18,22 +18,20 @@ class Schedule extends React.Component {
   }
 
   handleAddSchedule = () => {
-    const { item, schedule } = this.state;
+    const { newItem, schedule } = this.state;
     const { date } = this.props;
     const list = {
       id: this.id,
       date,
-      ...{ item },
+      item: newItem,
     };
 
     const scheduleList = schedule.concat(list);
 
     this.setState({
-      item: '',
+      newItem: '',
       schedule: scheduleList,
     });
-
-    console.log(scheduleList);
 
     localStorage.setItem('id', JSON.stringify(this.id));
     localStorage.setItem('scheduleList', JSON.stringify(scheduleList));
@@ -42,12 +40,12 @@ class Schedule extends React.Component {
 
   handleInputChange = (e) => {
     this.setState({
-      item: e.target.value,
+      newItem: e.target.value,
     });
   }
 
   render() {
-    const { item, schedule } = this.state;
+    const { newItem, schedule } = this.state;
     const { date: propsDate } = this.props;
     const schduleList = schedule.map(({ date: listDate, id: listId, item: listItem }) => {
       if (listDate === propsDate) {
@@ -59,7 +57,7 @@ class Schedule extends React.Component {
       <>
         <input
           placeholder="일정입력"
-          value={item}
+          value={newItem}
           onChange={this.handleInputChange}
         />
         <button
@@ -76,6 +74,6 @@ class Schedule extends React.Component {
   }
 }
 
-Schedule.propTypes = { date: PropTypes.string.isRequired };
+ScheduleBoard.propTypes = { date: PropTypes.string.isRequired };
 
-export default Schedule;
+export default ScheduleBoard;

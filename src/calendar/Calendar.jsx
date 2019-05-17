@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactCalendar from 'react-calendar';
-import Schedule from './js/Schedule';
+import ScheduleBoard from './js/ScheduleBoard';
 import './css/Calendar.css';
 
 class Calendar extends Component {
@@ -21,7 +21,7 @@ class Calendar extends Component {
           onChange={this.onChange}
           value={date}
         />
-        <Schedule
+        <ScheduleBoard
           date={this.dateFormating(date)}
         />
       </>
