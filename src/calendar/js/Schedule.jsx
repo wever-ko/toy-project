@@ -2,28 +2,42 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 class Schedule extends React.Component {
-  index = 0;
-
-  state = {
-    item: '',
-    schedule: [],
+  constructor(props) {
+    super(props);
+    this.state = {
+      item: '',
+      schedule: (() => {
+        const schedule = localStorage.getItem('scheduleList');
+        return (schedule === null) ? [] : JSON.parse(schedule);
+      })(),
+    };
+    this.id = (() => {
+      const id = localStorage.getItem('id');
+      return (id === null) ? 0 : JSON.parse(id);
+    })();
   }
 
   handleAddSchedule = () => {
     const { item, schedule } = this.state;
     const { date } = this.props;
     const list = {
-      index: this.index,
+      id: this.id,
       date,
       ...{ item },
     };
 
+    const scheduleList = schedule.concat(list);
+
     this.setState({
       item: '',
-      schedule: schedule.concat(list),
+      schedule: scheduleList,
     });
 
-    this.index += 1;
+    console.log(scheduleList);
+
+    localStorage.setItem('id', JSON.stringify(this.id));
+    localStorage.setItem('scheduleList', JSON.stringify(scheduleList));
+    this.id += 1;
   }
 
   handleInputChange = (e) => {
@@ -35,9 +49,9 @@ class Schedule extends React.Component {
   render() {
     const { item, schedule } = this.state;
     const { date: propsDate } = this.props;
-    const schdulelist = schedule.map(({ date: listDate, index: listIndex, item: listItem }) => {
+    const schduleList = schedule.map(({ date: listDate, id: listId, item: listItem }) => {
       if (listDate === propsDate) {
-        return <li key={listIndex}>{listItem}</li>;
+        return <li key={listId}>{listItem}</li>;
       }
     });
 
@@ -55,7 +69,7 @@ class Schedule extends React.Component {
           입력
         </button>
         <ul>
-          {schdulelist}
+          {schduleList}
         </ul>
       </>
     );
