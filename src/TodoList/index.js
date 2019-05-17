@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import ListItem from './ListItem';
 
 class TodoList extends React.Component {
@@ -92,5 +93,13 @@ class TodoList extends React.Component {
     );
   }
 }
+
+TodoList.defaultProps = {
+  items: [],
+};
+
+TodoList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default TodoList;
