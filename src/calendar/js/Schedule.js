@@ -5,8 +5,8 @@ class Schedule {
   }
 
   static setInitVal = (name, initVal) => {
-    const StorageItem = localStorage.getItem(name);
-    return (StorageItem === null) ? initVal : JSON.parse(StorageItem);
+    const storageItem = localStorage.getItem(name);
+    return (storageItem === null) ? initVal : JSON.parse(storageItem);
   }
 
   get = () => this.schedule;
