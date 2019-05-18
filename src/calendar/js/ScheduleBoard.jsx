@@ -1,41 +1,36 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import Schedule from './Schedule';
+import ScheduleListItem from './ScheduleListItem';
 
 class ScheduleBoard extends React.Component {
   constructor(props) {
     super(props);
+    this.schedule = new Schedule();
     this.state = {
       newItem: '',
-      schedule: (() => {
-        const schedule = localStorage.getItem('scheduleList');
-        return (schedule === null) ? [] : JSON.parse(schedule);
-      })(),
+      scheduleList: this.schedule.get(),
     };
-    this.id = (() => {
-      const id = localStorage.getItem('id');
-      return (id === null) ? 0 : JSON.parse(id);
-    })();
   }
 
   handleAddSchedule = () => {
-    const { newItem, schedule } = this.state;
+    const { newItem } = this.state;
     const { date } = this.props;
-    const list = {
-      id: this.id,
-      date,
-      item: newItem,
-    };
 
-    const scheduleList = schedule.concat(list);
+    this.schedule.add(date, newItem);
 
     this.setState({
       newItem: '',
-      schedule: scheduleList,
+      scheduleList: this.schedule.get(),
     });
+  }
 
-    localStorage.setItem('id', JSON.stringify(this.id));
-    localStorage.setItem('scheduleList', JSON.stringify(scheduleList));
-    this.id += 1;
+  handleDeleteSchedule = (id) => {
+    this.schedule.delete(id);
+
+    this.setState({
+      scheduleList: this.schedule.get(),
+    });
   }
 
   handleInputChange = (e) => {
@@ -45,11 +40,19 @@ class ScheduleBoard extends React.Component {
   }
 
   render() {
-    const { newItem, schedule } = this.state;
+    const { newItem, scheduleList } = this.state;
     const { date: propsDate } = this.props;
-    const schduleList = schedule.map(({ date: listDate, id: listId, item: listItem }) => {
-      if (listDate === propsDate) {
-        return <li key={listId}>{listItem}</li>;
+    const list = scheduleList.map(({ id: listId, date: listDate, item: listItem }) => {
+      if ((listDate === propsDate)) {
+        return (
+          <ScheduleListItem
+            key={`item-${listId}`}
+            onClick={this.handleDeleteSchedule}
+            id={listId}
+          >
+            {listItem}
+          </ScheduleListItem>
+        );
       }
     });
 
@@ -67,7 +70,7 @@ class ScheduleBoard extends React.Component {
           입력
         </button>
         <ul>
-          {schduleList}
+          {list}
         </ul>
       </>
     );
