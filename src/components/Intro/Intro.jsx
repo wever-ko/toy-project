@@ -1,5 +1,5 @@
 import React from 'react';
-import './Intro.css';
+import './Intro.scss';
 
 class Intro extends React.Component {
   state = {
@@ -27,31 +27,34 @@ class Intro extends React.Component {
     const { name, email } = this.state;
     return (
       <div className="container">
-        <div className="block">
-          <div>enter your name </div>
-          <input
-            className="input"
-            type="text"
-            value={name}
-            onChange={this.onChangeName}
-          />
-        </div>
-        <div className="block">
-          <div>enter your email</div>
-          <input
-            className="input"
-            type="email"
-            value={email}
-            onChange={this.onChangeEmail}
-          />
-        </div>
-        <button
-          className="button"
-          type="submit"
-          onClick={this.onSubmit}
-        >
-          확인
-        </button>
+        <div className="intro-title"> Welcome To Momentum </div>
+        <form>
+          <div className="block">
+            <input
+              className="input"
+              type="text"
+              value={name}
+              placeholder="enter your name"
+              onChange={this.onChangeName}
+            />
+          </div>
+          <div className="block">
+            <input
+              className="input"
+              type="email"
+              value={email}
+              placeholder="enter your email"
+              onChange={this.onChangeEmail}
+            />
+          </div>
+          <button
+            className="button"
+            type="submit"
+            onClick={this.onSubmit}
+          >
+            확인
+          </button>
+        </form>
       </div>
     );
   }

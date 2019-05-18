@@ -1,0 +1,28 @@
+$font-family: "Courier New", Courier, monospace;
+$basic-font-size: 1;
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  .intro-title {
+    font: $font-family;
+    font-size: $basic-font-size*1.5+em;
+  }
+
+  .block {
+    display: flex;
+    flex-direction: column;
+    font-size: $basic-font-size+em;
+  }
+  
+  .input {
+    border-color: gray;
+    border-style: none none solid none;
+  }
+  
+  .button {
+    border: 1px solid black;
+  }
+}
