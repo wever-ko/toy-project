@@ -42,16 +42,17 @@ class ScheduleBoard extends React.Component {
   render() {
     const { newItem, scheduleList } = this.state;
     const { date: propsDate } = this.props;
-    const filteredList = scheduleList.filter(({ date }) => date === propsDate);
-    const list = filteredList.map(({ id: listId, item: listItem }) => (
-      <ScheduleListItem
-        key={`item-${listId}`}
-        onClick={this.handleDeleteSchedule}
-        id={listId}
-      >
-        {listItem}
-      </ScheduleListItem>
-    ));
+    const list = scheduleList
+      .filter(({ date }) => date === propsDate)
+      .map(({ id: listId, item: listItem }) => (
+        <ScheduleListItem
+          key={`item-${listId}`}
+          onClick={this.handleDeleteSchedule}
+          id={listId}
+        >
+          {listItem}
+        </ScheduleListItem>
+      ));
 
     return (
       <>
