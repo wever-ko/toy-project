@@ -1,67 +1,37 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-
-class Schedule extends React.Component {
-  index = 0;
-
-  state = {
-    item: '',
-    schedule: [],
+class Schedule {
+  constructor() {
+    this.schedule = Schedule.setInitVal('scheduleList', []);
+    this.id = Schedule.setInitVal('id', 0);
   }
 
-  handleAddSchedule = () => {
-    const { item, schedule } = this.state;
-    const { date } = this.props;
+  static setInitVal = (name, initVal) => {
+    const storageItem = localStorage.getItem(name);
+    return (storageItem === null) ? initVal : JSON.parse(storageItem);
+  }
+
+  get = () => this.schedule;
+
+  add = (date, newItem) => {
     const list = {
-      index: this.index,
+      id: this.id,
       date,
-      ...{ item },
+      item: newItem,
     };
 
-    this.setState({
-      item: '',
-      schedule: schedule.concat(list),
-    });
+    this.schedule = this.schedule.concat(list);
+    this.id += 1;
+    localStorage.setItem('id', JSON.stringify(this.id));
+    localStorage.setItem('scheduleList', JSON.stringify(this.schedule));
+  };
 
-    this.index += 1;
-  }
-
-  handleInputChange = (e) => {
-    this.setState({
-      item: e.target.value,
-    });
-  }
-
-  render() {
-    const { item, schedule } = this.state;
-    const { date: propsDate } = this.props;
-    const schdulelist = schedule.map(({ date: listDate, index: listIndex, item: listItem }) => {
-      if (listDate === propsDate) {
-        return <li key={listIndex}>{listItem}</li>;
+  delete = (id) => {
+    this.schedule.forEach((item, index) => {
+      if (id === item.id) {
+        this.schedule.splice(index, 1);
       }
     });
-
-    return (
-      <>
-        <input
-          placeholder="일정입력"
-          value={item}
-          onChange={this.handleInputChange}
-        />
-        <button
-          type="button"
-          onClick={this.handleAddSchedule}
-        >
-          입력
-        </button>
-        <ul>
-          {schdulelist}
-        </ul>
-      </>
-    );
-  }
+    localStorage.setItem('scheduleList', JSON.stringify(this.schedule));
+  };
 }
-
-Schedule.propTypes = { date: PropTypes.string.isRequired };
 
 export default Schedule;
