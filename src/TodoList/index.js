@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import ListItem from './ListItem';
 
 class TodoList extends React.Component {
@@ -42,22 +42,64 @@ class TodoList extends React.Component {
           key={`item-${this.itemId}`}
           onClick={this.handleClickRemoveItem}
           index={index}
+          style={{ width: '200px' }}
         >
-          {item}
+          <div style={
+            {
+              width: '200px',
+              display: 'inline-block',
+              borderWidth: '1px',
+              borderStyle: 'solid',
+            }
+          }
+          >
+            {item}
+          </div>
         </ListItem>
       );
     });
 
-    return (
+    const todoInput = (
       <>
+        <input
+          type="text"
+          style={
+            {
+              width: '200px',
+              padding: 0,
+              borderWidth: '1px',
+              borderStyle: 'solid',
+            }
+          }
+          value={newItem}
+          onChange={this.handleInputChange}
+        />
+        <button
+          type="button"
+          onClick={this.handleClickAddItem}
+        >
+          +
+        </button>
+      </>
+    );
+
+    return (
+      <div className="todo-wrapper">
         <ul>
           {itemList}
+          {todoInput}
         </ul>
-        <button type="button" onClick={this.handleClickAddItem}>[+]</button>
-        <input type="text" value={newItem} onChange={this.handleInputChange} />
-      </>
+      </div>
     );
   }
 }
+
+TodoList.defaultProps = {
+  items: [],
+};
+
+TodoList.propTypes = {
+  items: PropTypes.arrayOf(PropTypes.string),
+};
 
 export default TodoList;
