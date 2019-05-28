@@ -1,5 +1,6 @@
 import React from 'react';
 import CharacterizedTime from './js/CharacterizedTime';
+import './css/Clock.scss';
 
 class Clock extends React.Component {
   constructor(props) {
@@ -35,10 +36,10 @@ class Clock extends React.Component {
     const clockDate = `${year} / ${month} / ${day}`;
 
     return (
-      <>
-        <div>{clockTime}</div>
-        <div>{clockDate}</div>
-      </>
+      <div className="clock">
+        <div className="clock-time">{clockTime}</div>
+        <div className="clock-date">{clockDate}</div>
+      </div>
     );
   }
 }
