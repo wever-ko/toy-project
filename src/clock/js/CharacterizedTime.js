@@ -1,17 +1,14 @@
-class CharacterizedTime {
-  constructor(date) {
-    this.time = {
-      year: this.timeToString(date.getFullYear()),
-      month: this.timeToString(date.getMonth() + 1),
-      day: this.timeToString(date.getDate()),
-      hour: this.timeToString(date.getHours()),
-      minute: this.timeToString(date.getMinutes()),
-    };
-    return this.time;
-  }
+const timeToString = timeNum => ((timeNum < 10) ? `0${timeNum.toString()}` : timeNum.toString());
 
-  timeToString = timeNum => ((timeNum < 10) ? `0${timeNum.toString()}` : timeNum.toString());
-}
-
+const CharacterizedTime = (date) => {
+  const time = {
+    year: timeToString(date.getFullYear()),
+    month: timeToString(date.getMonth() + 1),
+    day: timeToString(date.getDate()),
+    hour: timeToString(date.getHours()),
+    minute: timeToString(date.getMinutes()),
+  };
+  return time;
+};
 
 export default CharacterizedTime;

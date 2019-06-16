@@ -5,19 +5,23 @@ import './css/Clock.scss';
 class Clock extends React.Component {
   constructor(props) {
     super(props);
-    const initTime = new CharacterizedTime(new Date());
+    const initTime = CharacterizedTime(new Date());
     this.state = {
       clockData: initTime,
     };
   }
 
   componentDidMount() {
-    setInterval(this.timeUpdate(), 1000);
+    setInterval(this.timeUpdate, 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timeUpdate);
   }
 
   timeUpdate = () => {
     const { clockData } = this.state;
-    const currentTime = new CharacterizedTime(new Date());
+    const currentTime = CharacterizedTime(new Date());
 
     if (clockData !== currentTime) {
       this.setState({
@@ -27,10 +31,11 @@ class Clock extends React.Component {
   }
 
   render() {
-    const { clockData } = this.state;
     const {
-      year, month, day, hour, minute,
-    } = clockData;
+      clockData: {
+        year, month, day, hour, minute,
+      },
+    } = this.state;
 
     const clockTime = `${hour} : ${minute}`;
     const clockDate = `${year} / ${month} / ${day}`;
