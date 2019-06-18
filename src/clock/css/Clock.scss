@@ -1,0 +1,16 @@
+.clock {
+  width: 500px;
+
+  &-time {
+    margin: 0 auto;
+    text-align: center;
+    font : {
+      size: 120px;
+      weight: 400;
+    }
+  }
+  &-date {
+    @extend .clock-time;
+    font-size: 50px;
+  }
+}
