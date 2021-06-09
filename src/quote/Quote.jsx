@@ -5,19 +5,21 @@ import QuoteList from './QuoteList';
 
 class Quote extends Component {
     state = {
-
+        searchData: ''
     };
 
-    constructor(props){
-        super(props);
-    }
+    getSearchData = (data) =>{
+        this.setState({
+            searchData: data
+        })
+    };
 
     render() {
         return (
             <div className="quote">
-                <QuoteSearch/>
-                <QuoteData quote={}/>
-                <QuoteList/>
+                <QuoteSearch getSearchData={this.getSearchData}/>
+                <QuoteData quote={"I'm happy!"}/>
+                <QuoteList searchString={this.state.searchData}/>
             </div>
         );
     }
